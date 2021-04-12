@@ -17,8 +17,39 @@
  * }
  */
 
-function removeKFromList(/* l, k */) {
-  throw new Error('Not implemented');
+//  var list ={ value k, next: {
+//                          value: 2, next: {
+//                                   value: 3, next: null }}}
+
+// скорее всего когда ты перезаписываешь текущее значение,
+// ты пишешь что-то вроде "current = current.next",
+// а нужно "current.value = current.next.value" - 1 строка,
+//  "current.next = current.next.next' - 2 строка
+// я все не мог перезаписать ссылку, оказывается чтобы
+// перезаписать ссылку нужно обязательно указать .
+// next у перезаписываемого, до меня долго доходило
+// Если проблема не в этом, тогда есть время найти другую проблему)
+
+function removeKFromList(l, k) {
+  let current = l;
+  let last;
+
+  if (current.value !== k) {
+    last = current;
+  } else {
+    current = current.next;
+    last = current;
+  }
+
+  while (current.next) {
+    const nextNode = current.next;
+    if (nextNode.value === k) {
+      current.next = nextNode.next;
+    } else {
+      current = nextNode;
+    }
+  }
+  return last;
 }
 
 module.exports = removeKFromList;
